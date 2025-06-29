@@ -51,9 +51,9 @@ const App = () => {
             setNewName("");
             setNewNumber("");
             setNotification("Number updated successfully");
-          setTimeout(() => {
-            setNotification(null);
-          }, 5000);
+            setTimeout(() => {
+              setNotification(null);
+            }, 5000);
           })
 
           .catch((error) => {
@@ -62,13 +62,18 @@ const App = () => {
       }
       return;
     }
-    personServices.create(personObject).then((returnedPerson) => {
-      setPersons([...persons, returnedPerson]);
-      setNotification("Person added successfully");
-          setTimeout(() => {
-            setNotification(null);
-          }, 5000);
-    });
+    personServices
+      .create(personObject)
+      .then((returnedPerson) => {
+        setPersons([...persons, returnedPerson]);
+        setNotification("Person added successfully");
+        setTimeout(() => {
+          setNotification(null);
+        }, 5000);
+      })
+      .catch((error) => {
+        console.log(error.response.data.error);
+      });
     setNewName("");
     setNewNumber("");
   };
